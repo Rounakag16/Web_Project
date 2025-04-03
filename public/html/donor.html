@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Donate</title>
+    <link rel="stylesheet" href="../css/donation.css">
+</head>
+
+<body>
+    <!-- Back Button -->
+    <button class="back-btn" onclick="history.back()">Back</button>
+
+    <h1>Donate</h1>
+    <form action="/donor" method="POST" enctype="multipart/form-data" id="donationForm">
+        <label for="item">Item Type:</label>
+        <input type="text" name="item" id="item" required>
+
+        <label for="description">Item Description:</label>
+        <textarea name="description" id="description"></textarea>
+
+        <!-- Hidden fields for latitude and longitude -->
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+
+        <label for="image">Upload Image:</label>
+        <input type="file" name="image" id="image">
+
+        <!-- Display location status and button to fetch location -->
+        <p id="locationStatus">Fetching your location...</p>
+        <button type="button" id="getLocationBtn">Refresh Location</button>
+
+        <button type="submit">Donate</button>
+    </form>
+    <p id="responseMessage" style="text-align: center; font-weight: bold;"></p>
+
+
+
+    <script>
+        // Function to set location values in hidden fields
+        function setLocation(position) {
+            document.getElementById('latitude').value = position.coords.latitude;
+            document.getElementById('longitude').value = position.coords.longitude;
+            document.getElementById('locationStatus').textContent = "Location acquired.";
+        }
+
+        function handleLocationError(error) {
+            document.getElementById('locationStatus').textContent = "Error retrieving location. Please allow location access and try again.";
+        }
+
+        // Request geolocation on page load
+        function requestLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(setLocation, handleLocationError);
+            } else {
+                document.getElementById('locationStatus').textContent = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        // Request location when the page loads
+        window.addEventListener('load', requestLocation);
+        // Also allow refreshing location using the button
+        document.getElementById('getLocationBtn').addEventListener('click', requestLocation);
+
+        // Prevent form submission if location is not acquired
+        document.getElementById("donationForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Ensure location is acquired
+            if (!document.getElementById("latitude").value || !document.getElementById("longitude").value) {
+                alert("Please allow location access before submitting.");
+                return;
+            }
+
+            // Create FormData object for file uploads
+            const formData = new FormData(this);
+
+            fetch("/donor", {
+                method: "POST",
+                body: formData, // Send form data including the image
+            })
+                .then(response => response.text())
+                .then(message => {
+                    alert(message); // Show success or error alert based on response
+                    document.getElementById("responseMessage").textContent = message;
+
+                    // Optional: Reset form after successful submission
+                    if (message.includes("success")) {
+                        document.getElementById("donationForm").reset();
+                    }
+                })
+                .catch(error => {
+                    alert("Something went wrong! Please try again.");
+                });
+        });
+
+
+    </script>
+</body>
+
+</html>

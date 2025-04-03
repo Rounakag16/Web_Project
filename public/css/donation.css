@@ -1,0 +1,112 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(120deg, #4CAF50, #2196F3);
+    background-size: 200% 200%;
+    animation: backgroundAnimation 8s ease infinite;
+}
+
+/* Background Animation */
+@keyframes backgroundAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Back Button */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Form Container */
+form {
+    max-width: 500px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="file"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    padding-right: 0px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Button Styles */
+button {
+    margin-top: 15px;
+    padding: 12px 18px;
+    background: #ff6f61;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: #e05550;
+    transform: scale(1.05);
+}
+
+/* Location Status */
+#locationStatus {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}

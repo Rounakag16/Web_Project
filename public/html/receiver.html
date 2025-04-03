@@ -1,0 +1,38 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Receive</title>
+        <link rel="stylesheet" href="../css/receiver.css">
+    </head>
+
+    <body>
+        <!-- Back Button -->
+        <button class="back-btn" onclick="history.back()">Back</button>
+
+        <h1>Receive</h1>
+        <form action="/receiver" method="POST" id="receiverForm">
+            <label for="itemNeeded">Item Needed:</label>
+            <input type="text" name="itemNeeded" id="itemNeeded" required>
+
+            <!-- Hidden fields for latitude and longitude -->
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
+
+            <p id="locationStatus">Fetching your location...</p>
+            <button type="button" id="getLocationBtn">Refresh Location</button>
+            <button type="submit">Find Donors</button>
+        </form>
+
+        <!-- Results will be displayed here -->
+        <div id="results"></div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../js/receiver.js"></script>
+
+
+    </body>
+
+    </html>
